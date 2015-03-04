@@ -1,6 +1,7 @@
 package main;
-import planners.BuildingDepartment;
-import planners.UnitDepartment;
+import departments.TrainingDepartment;
+import departments.UnitDepartment;
+import util.GameOracle;
 import bwapi.*;
 import bwta.BWTA;
 
@@ -13,7 +14,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
     private Player self;
     
     private UnitDepartment unitDepartment;
-    private BuildingDepartment buildingDepartment;
+    private TrainingDepartment buildingDepartment;
 
     public void run() {
         mirror.getModule().setEventListener(this);
@@ -30,12 +31,12 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
         game = mirror.getGame();
         self = game.self();
         
-        unitDepartment = new UnitDepartment(game, self);
-        unitDepartment.recruit();
+        GameOracle.init(game, self);
+        unitDepartment = new UnitDepartment();
+        unitDepartment.init();
         
-        buildingDepartment = new BuildingDepartment(game, self);
-        buildingDepartment.recruit();
-        
+        buildingDepartment = new TrainingDepartment();
+        buildingDepartment.init();
 
         //Use BWTA to analyze map
         //This may take a few minutes if the map is processed first time!
@@ -49,7 +50,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
     @Override
     public void onFrame() {
       unitDepartment.work();
-      buildingDepartment.doShit(); // Refactor 
+      buildingDepartment.doShit(); // TODO Refactor 
     }
 
     public static void main(String[] args) {

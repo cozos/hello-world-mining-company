@@ -3,10 +3,11 @@ package workers;
 import java.util.ArrayList;
 import java.util.List;
 
-import planners.Department;
+import strategy.FinancialEntity;
+import departments.Department;
 import bwapi.Unit;
 
-public abstract class Team {
+public abstract class Team extends FinancialEntity implements ITeam {
   protected Department department;
   protected List<Unit> members;
   
@@ -15,6 +16,14 @@ public abstract class Team {
     this.department = department;
   }
   
-  public abstract void recruit();
+  public abstract void init();
   public abstract void work();
+  
+  public void assign(Unit unit){
+    this.members.add(unit);
+  }
+  
+  public List<Unit> getMembers(){
+    return members;
+  }
 }
