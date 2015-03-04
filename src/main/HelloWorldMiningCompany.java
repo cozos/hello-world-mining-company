@@ -14,7 +14,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
     private Player self;
     
     private UnitDepartment unitDepartment;
-    private TrainingDepartment buildingDepartment;
+    private TrainingDepartment trainingDepartment;
 
     public void run() {
         mirror.getModule().setEventListener(this);
@@ -35,8 +35,8 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
         unitDepartment = new UnitDepartment();
         unitDepartment.init();
         
-        buildingDepartment = new TrainingDepartment();
-        buildingDepartment.init();
+        trainingDepartment = new TrainingDepartment();
+        trainingDepartment.init();
 
         //Use BWTA to analyze map
         //This may take a few minutes if the map is processed first time!
@@ -50,7 +50,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
     @Override
     public void onFrame() {
       unitDepartment.work();
-      buildingDepartment.doShit(); // TODO Refactor 
+      trainingDepartment.doShit(); // TODO Refactor 
     }
 
     public static void main(String[] args) {
