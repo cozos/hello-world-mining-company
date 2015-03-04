@@ -1,2 +1,5 @@
-/TestBot1.class
-/HelloWorldMiningCompany.class
+*.class
+/bin/*
+.settings
+.project
+.classpath
