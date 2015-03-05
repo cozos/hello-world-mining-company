@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.GameOracle;
+import bureaucracy.Request;
+import bureaucracy.Request.Purpose;
+import bureaucracy.UnitRequest;
 import bwapi.Unit;
 import departments.Department;
-import bureaucracy.Request.Purpose;
 
 public class MiningTeam extends Team {
 
@@ -20,7 +22,8 @@ public class MiningTeam extends Team {
   }
 
   public void init() {
-    department.requestUnits(this, Purpose.GAMESTART, 1);
+    UnitRequest requestInitialWorkers = new UnitRequest(this, Purpose.GAMESTART, 1);
+    department.requestUnits(this, requestInitialWorkers);
   }
 
   public void work() {

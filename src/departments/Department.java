@@ -7,8 +7,9 @@ import java.util.PriorityQueue;
 import strategy.FinancialEntity;
 import workers.Team;
 import bureaucracy.Request;
-import bureaucracy.Request.Purpose;
 import bureaucracy.RequestComparator;
+import bureaucracy.ResourceRequest;
+import bureaucracy.UnitRequest;
 import bwapi.Unit;
 
 public abstract class Department extends FinancialEntity implements IDepartment{
@@ -24,13 +25,15 @@ public abstract class Department extends FinancialEntity implements IDepartment{
   public abstract void init();
   public abstract List<Unit> getUnits();
   
-  public void requestUnits(Team team, Purpose purpose, int prioritySuggestion){
-    int priority = 1; // TODO Amazing algorithm to figure out priority.
-    Request request = new Request(team, purpose, priority);
+  public void requestUnits(Team team, UnitRequest request){
+    // TODO Amazing algorithm to figure out priority.
+    int priority = request.getPriority(); 
+    request.setPriority(priority);
+    
     unitRequests.add(request);
   }
   
-  public void requestFunds(Team team, Purpose purpose,int minerals, int vespene, int prioritySuggestion){
+  public void requestFunds(Team team, ResourceRequest request){
     // TODO Amazing AI Algorithm
   }
 }

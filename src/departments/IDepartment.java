@@ -3,12 +3,13 @@ package departments;
 import java.util.List;
 
 import workers.Team;
-import bureaucracy.Request.Purpose;
+import bureaucracy.ResourceRequest;
+import bureaucracy.UnitRequest;
 import bwapi.Unit;
 
 public interface IDepartment {
   public void init();
   public List<Unit> getUnits();
-  public void requestFunds(Team team, Purpose purpose,int minerals, int vespene, int Suggestion);
-  public void requestUnits(Team team, Purpose purpose, int prioritySuggestion);
+  public void requestFunds(Team team, ResourceRequest resourceRequest);
+  public void requestUnits(Team team, UnitRequest unitRequest);
 }
