@@ -1,12 +1,21 @@
 package bureaucracy;
 
-import departments.IDepartment.Purpose;
 import workers.Team;
 
 public class Request {
   private Team team;
   private Purpose purpose;
   private int priority;
+  
+  public enum Purpose{
+    GAMESTART,
+    MINE,
+    SCOUT,
+    BUILD,
+    DEFEND,
+    ATTACK,
+    CRITICAL
+  }
   
   public Request(Team team, Purpose purpose, int priority) {
     this.setTeam(team);

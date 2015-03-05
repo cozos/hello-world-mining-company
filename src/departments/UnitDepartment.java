@@ -7,6 +7,7 @@ import util.GameOracle;
 import workers.MiningTeam;
 import workers.Team;
 import bureaucracy.Request;
+import bureaucracy.Request.Purpose;
 import bwapi.Unit;
 
 public class UnitDepartment extends Department {

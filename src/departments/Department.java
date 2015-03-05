@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import strategy.FinancialEntity;
 import workers.Team;
 import bureaucracy.Request;
+import bureaucracy.Request.Purpose;
 import bureaucracy.RequestComparator;
 import bwapi.Unit;
 

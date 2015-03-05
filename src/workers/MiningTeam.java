@@ -6,7 +6,7 @@ import java.util.List;
 import util.GameOracle;
 import bwapi.Unit;
 import departments.Department;
-import departments.IDepartment.Purpose;
+import bureaucracy.Request.Purpose;
 
 public class MiningTeam extends Team {
 
