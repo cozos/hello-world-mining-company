@@ -1,9 +1,9 @@
 package bureaucracy;
 
-import workers.Team;
+import strategy.IWorkingEntity;
 
 public class Request {
-  private Team team;
+  private IWorkingEntity workingEntity;
   private Purpose purpose;
   private int priority;
   
@@ -17,8 +17,8 @@ public class Request {
     CRITICAL
   }
   
-  public Request(Team team, Purpose purpose, int priority) {
-    this.setTeam(team);
+  public Request(IWorkingEntity workingEntity, Purpose purpose, int priority) {
+    this.setWorkingEntity(workingEntity);
     this.setPurpose(purpose);
     this.setPriority(priority);
   }
@@ -39,12 +39,12 @@ public class Request {
     this.purpose = purpose;
   }
 
-  public Team getTeam() {
-    return team;
+  public IWorkingEntity getWorkingEntity() {
+    return this.workingEntity;
   }
 
-  public void setTeam(Team team) {
-    this.team = team;
+  public void setWorkingEntity(IWorkingEntity workingEntity) {
+    this.workingEntity = workingEntity;
   }
 
 }

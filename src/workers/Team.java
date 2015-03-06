@@ -1,28 +1,18 @@
 package workers;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import strategy.FinancialEntity;
-import departments.Department;
+import strategy.WorkingEntity;
 import bwapi.Unit;
+import departments.Department;
 
-public abstract class Team extends FinancialEntity implements ITeam {
+public abstract class Team extends WorkingEntity implements ITeam {
   protected Department department;
-  protected List<Unit> members;
   
   public Team(Department department){
-    this.members = new ArrayList<>();
     this.department = department;
   }
-  
-  public abstract void init();
-  public abstract void work();
-  
-  public void assign(Unit unit){
-    this.members.add(unit);
-  }
-  
+
   public List<Unit> getMembers(){
     return members;
   }

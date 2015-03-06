@@ -2,14 +2,14 @@ package departments;
 
 import java.util.List;
 
-import workers.Team;
+import strategy.IWorkingEntity;
 import bureaucracy.ResourceRequest;
 import bureaucracy.UnitRequest;
 import bwapi.Unit;
 
-public interface IDepartment {
+public interface IDepartment extends IWorkingEntity {
   public void init();
   public List<Unit> getUnits();
-  public void requestFunds(Team team, ResourceRequest resourceRequest);
-  public void requestUnits(Team team, UnitRequest unitRequest);
+  public void requestFunds(ResourceRequest resourceRequest);
+  public void requestUnits(UnitRequest unitRequest);
 }

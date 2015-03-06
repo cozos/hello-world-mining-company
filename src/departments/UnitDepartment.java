@@ -3,38 +3,37 @@ package departments;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.GameOracle;
+import workers.ITeam;
 import workers.MiningTeam;
-import workers.Team;
-import bureaucracy.Request;
 import bureaucracy.Request.Purpose;
+import bureaucracy.UnitRequest;
 import bwapi.Unit;
 
 public class UnitDepartment extends Department {
-  private List<Team> teams;
+  private List<ITeam> teams;
   
   public UnitDepartment(){
-    this.teams = new ArrayList<Team>();
+    this.teams = new ArrayList<ITeam>();
     // TODO hard code it here? Config file?
     teams.add(new MiningTeam(this));
   }
 
   public void init() {
-    for(Team team : teams){
+    for(ITeam team : teams){
       team.init();
     }
   }
 
   public void work(){
     processUnitRequests();
-    for(Team team : teams){
+    for(ITeam team : teams){
       team.work();
     }
   }
 
   public List<Unit> getUnits() {
     List<Unit> allUnits = new ArrayList<>();
-    for (Team team : teams){
+    for (ITeam team : teams){
       allUnits.addAll(team.getMembers());
     }
     return allUnits;
@@ -42,20 +41,11 @@ public class UnitDepartment extends Department {
   
   public void processUnitRequests(){
     while(!unitRequests.isEmpty()){
-      Request request = unitRequests.poll();
+      UnitRequest request = unitRequests.poll();
       
-      // Special Case, Mine right away
+      // Special Case, tell all workers to start mining on game start.
       if(request.getPurpose() == Purpose.GAMESTART){
-        assignAllWorkers(request.getTeam());
-      }
-    }
-  }
-  
-  // TODO Hopefully java passes objects by reference
-  public void assignAllWorkers(Team team){
-    for (Unit unit : GameOracle.getUnits()) {
-      if (unit.getType().isWorker()) {
-        team.assign(unit);
+        assignAllToTeam(request.getWorkingEntity(), request.getUnitType());
       }
     }
   }

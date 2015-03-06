@@ -50,7 +50,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener {
     @Override
     public void onFrame() {
       unitDepartment.work();
-      trainingDepartment.doShit(); // TODO Refactor 
+      trainingDepartment.work(); // TODO Refactor 
     }
 
     public static void main(String[] args) {

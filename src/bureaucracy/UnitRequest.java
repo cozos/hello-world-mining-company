@@ -1,11 +1,18 @@
 package bureaucracy;
 
-import workers.Team;
+import strategy.WorkingEntity;
+import bwapi.UnitType;
 
 public class UnitRequest extends Request{
-
-  public UnitRequest(Team team, Purpose purpose, int priority) {
-    super(team, purpose, priority);
+  private UnitType unitType;
+  
+  public UnitRequest(WorkingEntity workingEntity, Purpose purpose, int priority, UnitType unitType) {
+    super(workingEntity, purpose, priority);
+    this.unitType = unitType;
+  }
+  
+  public UnitType getUnitType(){
+    return this.unitType;
   }
 
 }

@@ -1,6 +1,6 @@
 package strategy;
 
-public class FinancialEntity extends Entity {
+public class FinancialEntity extends Entity implements IFinancialEntity {
 
   public int minerals;
   public int vespene;

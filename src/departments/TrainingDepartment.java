@@ -3,36 +3,35 @@ package departments;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.GameOracle;
+import production.IProducer;
+import production.MiningProducer;
 import bwapi.Unit;
-import bwapi.UnitType;
 
 public class TrainingDepartment extends Department {
-  private List<Unit> trainingFacilities;
+  private List<Unit> trainingFacilities = new ArrayList<>();
+  private List<IProducer> producers = new ArrayList<>();
 
   public TrainingDepartment() {
     super();
-    trainingFacilities = new ArrayList<>();
+    // TODO hard code it here? Config file?
+    producers.add(new MiningProducer(this));
   }
 
+  @Override
   public void init() {
-    for (Unit unit : GameOracle.getUnits()) {
-      if (unit.getType().isBuilding()) {
-        trainingFacilities.add(unit);
-      }
+    for(IProducer producer : producers){
+      producer.init();
     }
   }
 
-  public void doShit() {
-    for (Unit trainingFacility : trainingFacilities) {
-      if (trainingFacility.getType() == UnitType.Terran_Command_Center && getMinerals() >= 50) {
-        trainingFacility.train(UnitType.Terran_SCV);
-      }
+  @Override
+  public void work() {
+    for(IProducer producer : producers){
+      producer.work();
     }
   }
 
   public List<Unit> getUnits() {
     return trainingFacilities;
   }
-
 }
