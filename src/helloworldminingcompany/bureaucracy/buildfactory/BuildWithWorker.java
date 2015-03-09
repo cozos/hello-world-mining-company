@@ -4,7 +4,7 @@ import bwapi.Unit;
 import bwapi.UnitType;
 
 /**
- * Train a unit from a building. 
+ * Build a structure using an SCV.
  *
  */
 public class BuildWithWorker extends BuildFactory{
