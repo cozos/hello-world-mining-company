@@ -9,4 +9,5 @@ import bwapi.Unit;
 public interface IWorkingEntity extends IFinancialEntity{
   public void work();
   public void assign(Unit unit);
+  public void discharge(Unit unit);
 }

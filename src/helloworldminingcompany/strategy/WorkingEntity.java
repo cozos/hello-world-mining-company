@@ -17,6 +17,10 @@ public abstract class WorkingEntity extends FinancialEntity implements IWorkingE
     this.members.add(unit);
   }
   
+  public void discharge(Unit unit){
+    this.members.remove(unit);
+  }
+  
   protected int getRemainingRequests(){
     List<IRequest> newPendingRequests = new ArrayList<IRequest>();
     for(IRequest request : pendingRequests){
