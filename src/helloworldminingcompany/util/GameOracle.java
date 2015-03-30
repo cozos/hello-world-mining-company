@@ -1,5 +1,7 @@
 package helloworldminingcompany.util;
 
+import helloworldminingcompany.base.MiningBase;
+import helloworldminingcompany.base.MiningBase.BaseType;
 import helloworldminingcompany.strategy.IWorkingEntity;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Map.Entry;
 
 import bwapi.Game;
 import bwapi.Player;
+import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
 
@@ -31,6 +34,8 @@ public class GameOracle {
   private static Map<UnitType, List<Unit>> ownedUnitsMap = new HashMap<>();
   private static Map<Unit, IWorkingEntity> unitAssignmentMap = new HashMap<>();
   
+  private static List<MiningBase> playerBases = new ArrayList<>();
+  
   private static long lastResourceUpdate;
   private static long lastOwnedUnitsUpdate;
   
@@ -40,6 +45,7 @@ public class GameOracle {
   public static void init(Game game, Player player){
     GameOracle.game = game;
     GameOracle.player = player;
+    GameOracle.playerBases.add(new MiningBase(GameOracle.getPlayerMain(), BaseType.MAIN));
   }
   
   public static List<Unit> getUnits(){
@@ -52,6 +58,14 @@ public class GameOracle {
   
   public static int getPlayerVespene(){
     return player.gas();
+  }
+  
+  public static TilePosition getPlayerMain(){
+    return player.getStartLocation();
+  }
+  
+  public static List<MiningBase> getPlayerBases(){
+    return playerBases;
   }
   
   public static List<Unit> getVisibleEnemyUnits(){

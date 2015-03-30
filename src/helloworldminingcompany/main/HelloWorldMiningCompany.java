@@ -2,8 +2,12 @@ package helloworldminingcompany.main;
 import helloworldminingcompany.departments.TrainingDepartment;
 import helloworldminingcompany.departments.UnitDepartment;
 import helloworldminingcompany.util.GameOracle;
-import bwapi.*;
-import bwta.BWTA;
+import helloworldminingcompany.util.TerrainOracle;
+import bwapi.DefaultBWListener;
+import bwapi.Game;
+import bwapi.Mirror;
+import bwapi.Player;
+import bwapi.Unit;
 
 public class HelloWorldMiningCompany extends DefaultBWListener{
 
@@ -32,16 +36,9 @@ public class HelloWorldMiningCompany extends DefaultBWListener{
         self = game.self();
         
         GameOracle.init(game, self);
+        TerrainOracle.init();
         unitDepartment = new UnitDepartment();
         trainingDepartment = new TrainingDepartment();
-
-        //Use BWTA to analyze map
-        //This may take a few minutes if the map is processed first time!
-        System.out.println("Analyzing map...");
-        BWTA.readMap();
-        BWTA.analyze();
-        System.out.println("Map data ready");
-
     }
 
     @Override

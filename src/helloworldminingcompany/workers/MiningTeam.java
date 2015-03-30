@@ -1,5 +1,6 @@
 package helloworldminingcompany.workers;
 
+import helloworldminingcompany.base.MiningBase;
 import helloworldminingcompany.bureaucracy.requests.IRequest.Purpose;
 import helloworldminingcompany.bureaucracy.requests.UnitRequest;
 import helloworldminingcompany.departments.Department;
@@ -17,6 +18,7 @@ public class MiningTeam extends Team{
    * 4-split Logic
    */
   private boolean init = false;
+  private List<MiningBase> miningBases = new ArrayList<>();
    
   public MiningTeam(Department department){
     super(department);
@@ -34,6 +36,15 @@ public class MiningTeam extends Team{
     tellIdleWorkersToMine();
   }
 
+  @Override
+  public void assign(Unit unit){
+    this.members.add(unit);
+    
+    // Figure out which base we want to put the worker on.
+    miningBases = GameOracle.getPlayerBases();
+    miningBases.get(0).assign(unit);
+  }
+  
   private void tellIdleWorkersToMine(){
     for (Unit unit : members) {
       if (unit.isIdle()) {
