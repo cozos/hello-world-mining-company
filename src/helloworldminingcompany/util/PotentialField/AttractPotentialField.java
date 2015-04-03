@@ -1,34 +1,11 @@
-package helloworldminingcompany.util;
+package helloworldminingcompany.util.PotentialField;
 
 import bwapi.Position;
 
-public class PotentialField {
+public class AttractPotentialField extends PotentialField {
 
-    public enum Mode{ ATTRACT, REPEL };
-
-    private Mode mode;
-
-    private double radius;
-
-    private Position position;
-
-    private double scalingFactor;
-
-    private double boundaryLength;
-
-    public PotentialField(Position position, double radius, Mode mode){
-        this.boundaryLength = boundaryLength;
-        this.position = position;
-        this.radius = radius;
-        this.mode = mode;
-    }
-
-    public void toggle(){
-        if(this.mode == Mode.REPEL){
-            this.mode = Mode.ATTRACT;
-        }else{
-            this.mode = Mode.REPEL;
-        }
+    public AttractPotentialField(Position position, double radius){
+        super(position, radius);
     }
 
     public Position getForceFromPosition(Position externalPosition){
@@ -43,13 +20,18 @@ public class PotentialField {
         boolean isOutside = distance > this.radius + this.boundaryLength;
 
         Position position = null;
-        if (withinField || withinBoundary){
-            double c = -this.scalingFactor * (this.boundaryLength - distance + this.radius);
+        if (withinField){
+            position = new Position(0, 0);
+        }else if(withinBoundary){
+            double c = this.scalingFactor * (distance - this.radius);
             int x = (int) (c * Math.cos(theta));
             int y = (int) (c * Math.sin(theta));
             position = new Position(x, y);
         }else if (isOutside){
-            position = new Position(0, 0);
+            double c = this.scalingFactor * distance;
+            int x = (int) (c * Math.cos(theta));
+            int y = (int) (c * Math.sin(theta));
+            position = new Position(x, y);
         }
 
         return position;
