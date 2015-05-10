@@ -1,7 +1,7 @@
 package com.scbot.game;
 
+import bwapi.Player;
 import bwapi.Unit;
-import com.scbot.game.player.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,19 +18,20 @@ public class Game {
         this.game = game;
     }
 
-    public Collection<Unit> getPlayerUnits(){
-        return game.self().getUnits();
+    /**
+     * @param ID of some Player in the game
+     * @return Units of player
+     */
+    public Collection<Unit> getUnits(int ID){
+        for(Player p : game.getPlayers()){
+            if(p.getID()==ID){
+                return p.getUnits();
+            }
+        }
+        return null;
     }
 
-    public Collection<Unit> getEnemyUnits(){
-
-        Collection<Unit> units = new ArrayList<>();
-
-        game.getPlayers()
-                .stream()
-                .filter(p -> p.isEnemy(game.self()))
-                .map(p -> units.addAll(p.getUnits()));
-
-        return units;
+    public Collection<Unit> getNeutralUnits() {
+        return game.neutral().getUnits();
     }
 }

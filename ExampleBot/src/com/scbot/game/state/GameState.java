@@ -1,8 +1,7 @@
 package com.scbot.game.state;
 
-import com.scbot.delegators.IGameBotDelegator;
 import com.scbot.game.Game;
-import com.scbot.game.agent.Agent;
+import com.scbot.game.agent.Unit;
 
 import java.util.Collection;
 
@@ -11,25 +10,20 @@ import java.util.Collection;
  */
 public class GameState implements IGameState {
 
-    private Game game;
 
-    private Collection<Agent> playerUnits;
+    private Collection<Unit> playerUnits;
 
-    private Collection<Agent> enemyUnits;
+    private Collection<Unit> enemyUnits;
 
-    public GameState(Game game){
-        this.game = game;
+    public GameState(){
     }
 
-    public Collection<Agent> getPlayerUnits() {
+    public Collection<Unit> getPlayerUnits() {
         return playerUnits;
     }
 
-    public Collection<Agent> getEnemyUnits() {
+    public Collection<Unit> getEnemyUnits() {
         return enemyUnits;
     }
 
-    // TODO
-    public void update(){
-    }
 }
