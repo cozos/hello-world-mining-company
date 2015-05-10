@@ -1,8 +1,6 @@
 package com.scbot.game.state;
 
-import com.scbot.game.Game;
 import com.scbot.game.agent.IUnit;
-import com.scbot.game.agent.Unit;
 
 import java.util.Collection;
 
@@ -13,19 +11,19 @@ public class GameState {
 
     private Collection<IUnit> idleWorkers;
 
-    private Collection<IUnit> neutralUnits;
+    private Collection<IUnit> mineralFields;
 
-    public GameState(Collection<IUnit> idleWorkers, Collection<IUnit> neutralUnits){
+    public GameState(Collection<IUnit> idleWorkers, Collection<IUnit> mineralFields){
         this.idleWorkers = idleWorkers;
-        this.neutralUnits = neutralUnits;
+        this.mineralFields = mineralFields;
     }
 
     public Collection<IUnit> getIdleWorkers() {
         return idleWorkers;
     }
 
-    public Collection<IUnit> getNeutralUnits() {
-        return neutralUnits;
+    public Collection<IUnit> getMineralFields() {
+        return mineralFields;
     }
 
 }

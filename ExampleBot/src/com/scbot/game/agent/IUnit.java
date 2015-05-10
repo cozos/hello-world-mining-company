@@ -7,4 +7,6 @@ import com.scbot.utils.dto.Position;
  */
 public interface IUnit {
     Position getPosition();
+    int getDistance(IUnit unit);
+    int getID();
 }

@@ -26,6 +26,16 @@ public class Unit implements IUnit, IAgent {
     }
 
     @Override
+    public int getDistance(IUnit unit) {
+        return 0;
+    }
+
+    @Override
+    public int getID() {
+        return ID;
+    }
+
+    @Override
     public Collection<Action> getActions(GameState state) {
         return null;
     }

@@ -34,8 +34,9 @@ public class UnitProvider implements IUnitProvider {
                 .collect(Collectors.toList());
     }
 
-    public Collection<IUnit> getNeutralUnits(){
+    public Collection<IUnit> getMineralFields(){
         return game.getNeutralUnits().stream()
+                .filter(unit -> unit.getType().isMineralField())
                 .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());
     }
