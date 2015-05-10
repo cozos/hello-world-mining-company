@@ -5,13 +5,15 @@ import bwapi.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Created by User1 on 5/7/2015.
  */
 public class Game {
 
-    private bwapi.Game game;
+    private static bwapi.Game game;
 
     public Game(bwapi.Game game){
         System.out.println("Constructing game");
@@ -22,7 +24,7 @@ public class Game {
      * @param ID of some Player in the game
      * @return Units of player
      */
-    public Collection<Unit> getUnits(int ID){
+    public static Collection<Unit> getUnits(int ID){
         for(Player p : game.getPlayers()){
             if(p.getID()==ID){
                 return p.getUnits();
@@ -31,7 +33,14 @@ public class Game {
         return null;
     }
 
-    public Collection<Unit> getNeutralUnits() {
+    public static Collection<Unit> getNeutralUnits() {
         return game.neutral().getUnits();
+    }
+
+    public static Unit getUnit(int ID){
+        return game.getAllUnits().stream()
+                .filter(u -> u.getID() == ID)
+                .findFirst()
+                .get();
     }
 }

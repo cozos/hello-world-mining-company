@@ -1,6 +1,5 @@
 package com.scbot.providers;
 
-import bwapi.Player;
 import com.scbot.builders.UnitBuilder;
 import com.scbot.game.Game;
 import com.scbot.game.agent.IUnit;

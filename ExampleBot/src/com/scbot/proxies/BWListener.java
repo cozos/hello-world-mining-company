@@ -8,9 +8,8 @@ import com.scbot.game.Game;
 import com.scbot.game.player.*;
 import com.scbot.game.state.GameState;
 import com.scbot.providers.UnitProvider;
-import com.scbot.utils.Action;
+import com.scbot.game.actions.Action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 

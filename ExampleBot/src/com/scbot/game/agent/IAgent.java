@@ -1,7 +1,7 @@
 package com.scbot.game.agent;
 
 import com.scbot.game.state.GameState;
-import com.scbot.utils.Action;
+import com.scbot.game.actions.Action;
 
 import java.util.Collection;
 

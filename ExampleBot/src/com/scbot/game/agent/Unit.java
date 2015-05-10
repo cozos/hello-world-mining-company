@@ -1,7 +1,7 @@
 package com.scbot.game.agent;
 
 import com.scbot.game.state.GameState;
-import com.scbot.utils.Action;
+import com.scbot.game.actions.Action;
 import com.scbot.utils.dto.Position;
 
 import java.util.Collection;
@@ -11,9 +11,12 @@ import java.util.Collection;
  */
 public class Unit implements IUnit, IAgent {
 
+    private int ID;
+
     private Position position;
 
-    public Unit(Position position){
+    public Unit(int ID, Position position){
+        this.ID = ID;
         this.position = position;
     }
 

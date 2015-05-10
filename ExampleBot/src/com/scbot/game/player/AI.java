@@ -1,11 +1,9 @@
 package com.scbot.game.player;
 
-import com.scbot.game.Game;
 import com.scbot.game.agent.IAgent;
-import com.scbot.game.agent.IUnit;
 import com.scbot.game.state.GameState;
 import com.scbot.providers.UnitProvider;
-import com.scbot.utils.Action;
+import com.scbot.game.actions.Action;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,7 +24,7 @@ public class AI implements IPlayer, IAgent{
     }
 
     public int getID(){
-        return ID;
+        return this.ID;
     }
 
     public Collection<Action> getActions(GameState gameState){

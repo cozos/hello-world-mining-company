@@ -12,7 +12,7 @@ public class UnitBuilder {
     private IUnit instance;
 
     public UnitBuilder buildAgent(bwapi.Unit unit) {
-        instance = new Unit(PositionTranslator.translatePosition(unit.getPosition()));
+        instance = new Unit(unit.getID(), PositionTranslator.translatePosition(unit.getPosition()));
         return this;
     }
 
