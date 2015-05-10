@@ -5,6 +5,7 @@ import com.scbot.game.actions.Action;
 import com.scbot.utils.dto.Position;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by User1 on 5/4/2015.
@@ -27,7 +28,9 @@ public class Unit implements IUnit, IAgent {
 
     @Override
     public int getDistance(IUnit unit) {
-        return 0;
+        int newx = Math.abs(this.position.getX() - unit.getPosition().getX());
+        int newy = Math.abs(this.position.getY() - unit.getPosition().getY());
+        return (int)Math.sqrt(newx*newx + newy*newy);
     }
 
     @Override
@@ -37,6 +40,6 @@ public class Unit implements IUnit, IAgent {
 
     @Override
     public Collection<Action> getActions(GameState state) {
-        return null;
+        return Collections.emptyList();
     }
 }
