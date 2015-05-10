@@ -43,7 +43,7 @@ public class BWListener extends DefaultBWListener implements Runnable{
         System.out.println("Init gameRef");
         this.gameRef = mirror.getGame();
         this.game = new Game(this.gameRef);
-        AI = new AI(gameRef.self().getID());
+        AI = new AI(gameRef.self().getID(), Collections.EMPTY_LIST);
     }
 
     @Override

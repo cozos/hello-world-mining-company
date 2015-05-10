@@ -18,7 +18,10 @@ public class AI implements IPlayer, IAgent{
 
     private int playerID;
 
-    public AI(int playerID){
+    private Collection<IAgent> agents;
+
+    public AI(int playerID, Collection<IAgent> agents){
+        this.agents = agents;
         this.playerID = playerID;
     }
 
@@ -29,21 +32,11 @@ public class AI implements IPlayer, IAgent{
     public Collection<Action> getActions(GameState gameState){
 
         Collection<IUnit> idleWorkers = gameState.getIdleWorkers();
-        Collection<IUnit> mineralFields = gameState.getMineralFields();
 
         Collection<Action> actions = new ArrayList<>();
 
         for(IUnit unit : idleWorkers){
-            IUnit closestMineral = null;
-            for(IUnit mineral : mineralFields){
-                if(closestMineral==null || unit.getDistance(mineral) < unit.getDistance(closestMineral)){
-                    closestMineral = mineral;
-                }
-            }
-
-            if(closestMineral != null){
-                actions.add(new GatherAction(unit.getID(), closestMineral.getID()));
-            }
+            actions.addAll(unit.getActions(gameState));
         }
 
         return actions;

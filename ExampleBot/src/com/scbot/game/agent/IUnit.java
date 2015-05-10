@@ -5,7 +5,7 @@ import com.scbot.utils.dto.Position;
 /**
  * Created by User1 on 5/10/2015.
  */
-public interface IUnit {
+public interface IUnit extends IAgent{
     Position getPosition();
     int getDistance(IUnit unit);
     int getID();
