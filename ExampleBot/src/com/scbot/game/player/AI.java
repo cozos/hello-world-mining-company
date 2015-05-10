@@ -13,18 +13,18 @@ import java.util.List;
  */
 public class AI implements IPlayer, IAgent{
 
-    private int ID;
+    private int playerID;
 
     // AI has multiple sub-AIs
     private List<IAgent> agents;
 
-    public AI(int ID, UnitProvider unitProvider, List<IAgent> agents){
-        this.ID = ID;
+    public AI(int playerID, UnitProvider unitProvider, List<IAgent> agents){
+        this.playerID = playerID;
         this.agents = agents;
     }
 
     public int getID(){
-        return this.ID;
+        return this.playerID;
     }
 
     public Collection<Action> getActions(GameState gameState){

@@ -4,6 +4,7 @@ import bwapi.DefaultBWListener;
 import bwapi.Mirror;
 import bwapi.Unit;
 import bwta.BWTA;
+import com.scbot.builders.GameStateBuilder;
 import com.scbot.game.Game;
 import com.scbot.game.player.*;
 import com.scbot.game.state.GameState;
@@ -17,9 +18,11 @@ public class BWListener extends DefaultBWListener implements Runnable{
 
     private AI AI;
 
-    private bwapi.Game game;
+    private bwapi.Game gameRef;
 
     public static Mirror mirror = new Mirror();
+
+    public static Game game;
 
     public BWListener(){
     }
@@ -37,21 +40,18 @@ public class BWListener extends DefaultBWListener implements Runnable{
     public void onStart() {
         BWTA.readMap();
         BWTA.analyze();
-        System.out.println("Init game");
-        this.game = mirror.getGame();
-        AI = new AI(game.self().getID(), new UnitProvider(new Game(this.game)), Collections.emptyList());
+        System.out.println("Init gameRef");
+        this.gameRef = mirror.getGame();
+        this.game = new Game(this.gameRef);
+        AI = new AI(gameRef.self().getID(), new UnitProvider(this.game), Collections.emptyList());
     }
 
     @Override
     public void onFrame() {
         // 23 FPS. Update every second.
-        if(game.getFrameCount() == 23){
-            // TODO: GameState builder
-            GameState gameState = new GameState();
-            Collection<Action> actions = AI.getActions(gameState);
-            for (Action action : actions){
-                // TODO: execute actions
-            }
+        if(gameRef.getFrameCount() == 23){
+            GameState gameState = GameStateBuilder.requestGameState(AI.getID()).build();
+            AI.getActions(gameState).stream().forEach(action -> action.execute());
         }
     }
 }

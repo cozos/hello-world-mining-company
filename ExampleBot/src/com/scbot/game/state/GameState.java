@@ -1,6 +1,7 @@
 package com.scbot.game.state;
 
 import com.scbot.game.Game;
+import com.scbot.game.agent.IUnit;
 import com.scbot.game.agent.Unit;
 
 import java.util.Collection;
@@ -8,22 +9,23 @@ import java.util.Collection;
 /**
  * Created by User1 on 5/7/2015.
  */
-public class GameState implements IGameState {
+public class GameState {
 
+    private Collection<IUnit> idleWorkers;
 
-    private Collection<Unit> playerUnits;
+    private Collection<IUnit> neutralUnits;
 
-    private Collection<Unit> enemyUnits;
-
-    public GameState(){
+    public GameState(Collection<IUnit> idleWorkers, Collection<IUnit> neutralUnits){
+        this.idleWorkers = idleWorkers;
+        this.neutralUnits = neutralUnits;
     }
 
-    public Collection<Unit> getPlayerUnits() {
-        return playerUnits;
+    public Collection<IUnit> getIdleWorkers() {
+        return idleWorkers;
     }
 
-    public Collection<Unit> getEnemyUnits() {
-        return enemyUnits;
+    public Collection<IUnit> getNeutralUnits() {
+        return neutralUnits;
     }
 
 }
