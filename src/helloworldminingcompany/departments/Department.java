@@ -46,14 +46,9 @@ public abstract class Department extends WorkingEntity implements IDepartment{
     unitRequests.add(request);
   }
   
-  public void requestFunds(ResourceRequest request){
-    // TODO Amazing AI Algorithm
-  }
-  
-  public void requestBuild(BuildRequest buildRequest){
-    buildRequests.add(buildRequest);
-  }
-  
+  /*
+   * This function probably should not be here.
+   */
   public void processUnitRequests(){
     while(!unitRequests.isEmpty()){
       UnitRequest request = unitRequests.poll();
@@ -65,5 +60,11 @@ public abstract class Department extends WorkingEntity implements IDepartment{
     }
   }
   
+  public void requestFunds(ResourceRequest request){
+    // TODO Amazing AI Algorithm
+  }
   
+  public void requestBuild(BuildRequest buildRequest){
+    buildRequests.add(buildRequest);
+  }
 }

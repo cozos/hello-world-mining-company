@@ -1,19 +1,29 @@
 package helloworldminingcompany.util;
 
+import helloworldminingcompany.base.MiningBase;
+import helloworldminingcompany.base.MiningBase.BaseType;
+import helloworldminingcompany.strategy.IWorkingEntity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import bwapi.Game;
 import bwapi.Player;
+import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
 
+/**
+ * A global static class that acts as a wrapper for the BWAPI client.
+ * It is our single source of truth.
+ */
 public class GameOracle {
-  private static long DEFAULT_RESOURCE_UPDATE_INTERVAL = 30000;
-  private static long DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL = 1000;
+  private static long DEFAULT_RESOURCE_UPDATE_INTERVAL = 10000;
+  private static long DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL = 100;
   
   private static Game game;
   private static Player player;
@@ -22,6 +32,9 @@ public class GameOracle {
   private static List<Unit> vespene = new ArrayList<>();
   
   private static Map<UnitType, List<Unit>> ownedUnitsMap = new HashMap<>();
+  private static Map<Unit, IWorkingEntity> unitAssignmentMap = new HashMap<>();
+  
+  private static List<MiningBase> playerBases = new ArrayList<>();
   
   private static long lastResourceUpdate;
   private static long lastOwnedUnitsUpdate;
@@ -32,6 +45,8 @@ public class GameOracle {
   public static void init(Game game, Player player){
     GameOracle.game = game;
     GameOracle.player = player;
+    // Initialize our "Main"
+    GameOracle.playerBases.add(new MiningBase(GameOracle.getPlayerMain(), BaseType.MAIN));
   }
   
   public static List<Unit> getUnits(){
@@ -46,8 +61,27 @@ public class GameOracle {
     return player.gas();
   }
   
+  public static TilePosition getPlayerMain(){
+    return player.getStartLocation();
+  }
+  
+  public static List<MiningBase> getPlayerBases(){
+    return playerBases;
+  }
+  
   public static List<Unit> getVisibleEnemyUnits(){
     return game.enemy().getUnits();
+  }
+  
+  public static boolean isUnitOwned(Unit unit){
+    checkLastUnitMapsUpdate();
+    List<Unit> unitList = ownedUnitsMap.get(unit.getType());
+    
+    if(unitList == null){
+      return false;
+    } else {
+      return unitList.contains(unit);
+    }
   }
   
   /**
@@ -56,17 +90,34 @@ public class GameOracle {
    * 
    */
   public static List<Unit> getOwnedUnits(UnitType unitType){
-    checkLastOwnedUnitsUpdate();
+    checkLastUnitMapsUpdate();
     return ownedUnitsMap.get(unitType);
   }
   
-  /**
-   * Update "cached" list if time elapsed is longer than interval.
-   */
-  public static void checkLastOwnedUnitsUpdate(){
-    if(System.currentTimeMillis() - lastOwnedUnitsUpdate > DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL){
-      updateOwnedUnitMap();
+  public static List<Unit> getAssignedUnits(){
+    checkLastUnitMapsUpdate();
+    List<Unit> assignedUnits = new ArrayList<Unit>();
+    
+    for(Entry<Unit, IWorkingEntity> entry : unitAssignmentMap.entrySet()){
+      if (entry.getValue() != null){
+        assignedUnits.add(entry.getKey());
+      }
     }
+    
+    return assignedUnits;
+  }
+  
+  public static List<Unit> getUnassignedUnits(){
+    checkLastUnitMapsUpdate();
+    List<Unit> unassignedUnits = new ArrayList<Unit>();
+    
+    for(Entry<Unit, IWorkingEntity> entry : unitAssignmentMap.entrySet()){
+      if (entry.getValue() == null){
+        unassignedUnits.add(entry.getKey());
+      }
+    }
+    
+    return unassignedUnits;
   }
   
   /**
@@ -76,9 +127,12 @@ public class GameOracle {
    * KEY: UnitType
    * VALUE: List of Units that are that UnitType
    */
-  public static void updateOwnedUnitMap(){
+  public static void updateUnitMaps(){
     ownedUnitsMap.clear();
-    for (Unit unit : player.getUnits()){
+    List<Unit> playerUnits = player.getUnits();
+    
+    for (Unit unit : playerUnits){
+      // ownedUnitsMap
       List<Unit> unitListInMap = ownedUnitsMap.get(unit.getType());
       if(unitListInMap != null){
         unitListInMap.add(unit);
@@ -86,8 +140,33 @@ public class GameOracle {
       } else {
         ownedUnitsMap.put(unit.getType(), new ArrayList<>(Arrays.asList(unit)));
       }
+      
+      // unitAssignmentMap
+      if (!unitAssignmentMap.containsKey(unit)){
+        unitAssignmentMap.put(unit, null);
+      }
     }
+    
+    // Do headcount for unitAssignmentMap i.e. remove dead units from our headcount
+    for(Unit unit : unitAssignmentMap.keySet()){
+      if (!playerUnits.contains(unit)){
+        if(unitAssignmentMap.get(unit) != null){
+          unitAssignmentMap.get(unit).discharge(unit);
+        }
+        unitAssignmentMap.remove(unit);
+      }
+    }
+    
     lastOwnedUnitsUpdate = System.currentTimeMillis();
+  }
+  
+  /**
+   * Update "cached" list if time elapsed is longer than interval.
+   */
+  public static void checkLastUnitMapsUpdate(){
+    if(System.currentTimeMillis() - lastOwnedUnitsUpdate > DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL){
+      updateUnitMaps();
+    }
   }
   
   public static List<Unit> getMapMinerals(){
