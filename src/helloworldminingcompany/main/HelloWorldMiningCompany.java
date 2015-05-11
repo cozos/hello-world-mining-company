@@ -35,6 +35,7 @@ public class HelloWorldMiningCompany extends DefaultBWListener{
         game = mirror.getGame();
         self = game.self();
         
+        // Always Init Oracles first.
         GameOracle.init(game, self);
         TerrainOracle.init();
         unitDepartment = new UnitDepartment();

@@ -23,7 +23,7 @@ import bwapi.UnitType;
  */
 public class GameOracle {
   private static long DEFAULT_RESOURCE_UPDATE_INTERVAL = 10000;
-  private static long DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL = 60;
+  private static long DEFAULT_OWNED_UNITS_MAP_UPDATE_INTERVAL = 100;
   
   private static Game game;
   private static Player player;
@@ -45,6 +45,7 @@ public class GameOracle {
   public static void init(Game game, Player player){
     GameOracle.game = game;
     GameOracle.player = player;
+    // Initialize our "Main"
     GameOracle.playerBases.add(new MiningBase(GameOracle.getPlayerMain(), BaseType.MAIN));
   }
   
