@@ -23,5 +23,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="bwmirror_v1_2" level="project" />
   </component>
 </module>
