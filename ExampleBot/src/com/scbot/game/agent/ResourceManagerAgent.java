@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by User1 on 5/10/2015.
  */
-public class ResourceManagerAgent implements IAgent{
+public class ResourceManagerAgent extends HeirarchicalAgent{
 
     @Override
     public Collection<IAction> getActions(GameState state) {
