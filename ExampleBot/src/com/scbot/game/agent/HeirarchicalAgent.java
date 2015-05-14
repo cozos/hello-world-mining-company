@@ -19,7 +19,7 @@ public abstract class HeirarchicalAgent implements IAgent{
     }
 
     public HeirarchicalAgent(){
-        this.children = Collections.emptyList();
+        this(Collections.emptyList());
     }
 
     @Override
