@@ -1,6 +1,6 @@
 package com.scbot.game.player;
 
-import com.scbot.game.actions.Action;
+import com.scbot.game.actions.IAction;
 import com.scbot.game.state.GameState;
 
 import java.util.Collection;
@@ -10,5 +10,5 @@ import java.util.Collection;
  */
 public interface IPlayer {
     int getID();
-    Collection<Action> getActions(GameState gameState);
+    Collection<IAction> getActions(GameState gameState);
 }

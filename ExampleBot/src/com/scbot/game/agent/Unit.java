@@ -2,12 +2,11 @@ package com.scbot.game.agent;
 
 import com.scbot.game.actions.GatherAction;
 import com.scbot.game.state.GameState;
-import com.scbot.game.actions.Action;
+import com.scbot.game.actions.IAction;
 import com.scbot.utils.dto.Position;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Created by User1 on 5/4/2015.
@@ -41,9 +40,9 @@ public class Unit implements IUnit, IAgent {
     }
 
     @Override
-    public Collection<Action> getActions(GameState state) {
+    public Collection<IAction> getActions(GameState state) {
 
-        Collection<Action> actions = new ArrayList<>();
+        Collection<IAction> IActions = new ArrayList<>();
         Collection<IUnit> mineralFields = state.getMineralFields();
 
         IUnit closestMineral = null;
@@ -55,9 +54,9 @@ public class Unit implements IUnit, IAgent {
         }
 
         if(closestMineral != null){
-            actions.add(new GatherAction(this.getID(), closestMineral.getID()));
+            IActions.add(new GatherAction(this.getID(), closestMineral.getID()));
         }
 
-        return actions;
+        return IActions;
     }
 }

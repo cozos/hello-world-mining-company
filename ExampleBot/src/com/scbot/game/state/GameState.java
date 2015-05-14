@@ -26,4 +26,12 @@ public class GameState {
         return mineralFields;
     }
 
+    public void occupyMineral(int id){
+        for(IUnit mineral : mineralFields){
+            if(mineral.getID() == id){
+                mineralFields.remove(mineral);
+                return;
+            }
+        }
+    }
 }

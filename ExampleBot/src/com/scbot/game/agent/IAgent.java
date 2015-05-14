@@ -1,7 +1,7 @@
 package com.scbot.game.agent;
 
 import com.scbot.game.state.GameState;
-import com.scbot.game.actions.Action;
+import com.scbot.game.actions.IAction;
 
 import java.util.Collection;
 
@@ -9,5 +9,5 @@ import java.util.Collection;
  * Created by User1 on 5/9/2015.
  */
 public interface IAgent {
-    Collection<Action> getActions(GameState state);
+    Collection<IAction> getActions(GameState state);
 }

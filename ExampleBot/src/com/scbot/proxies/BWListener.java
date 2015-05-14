@@ -6,12 +6,11 @@ import bwapi.Unit;
 import bwta.BWTA;
 import com.scbot.builders.GameStateBuilder;
 import com.scbot.game.Game;
+import com.scbot.game.agent.ResourceManagerAgent;
 import com.scbot.game.player.*;
 import com.scbot.game.state.GameState;
-import com.scbot.providers.UnitProvider;
-import com.scbot.game.actions.Action;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class BWListener extends DefaultBWListener implements Runnable{
@@ -43,7 +42,7 @@ public class BWListener extends DefaultBWListener implements Runnable{
         System.out.println("Init gameRef");
         this.gameRef = mirror.getGame();
         this.game = new Game(this.gameRef);
-        AI = new AI(gameRef.self().getID(), Collections.EMPTY_LIST);
+        AI = new AI(gameRef.self().getID(), Arrays.asList(new ResourceManagerAgent()));
     }
 
     @Override
