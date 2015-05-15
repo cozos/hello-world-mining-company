@@ -42,14 +42,14 @@ public class BWListener extends DefaultBWListener implements Runnable{
         System.out.println("Init gameRef");
         this.gameRef = mirror.getGame();
         this.game = new Game(this.gameRef);
-        AI = new AI(gameRef.self().getID(), Arrays.asList(new ResourceManagerAgent()));
+        AI = new AI(gameRef.self(), Arrays.asList(new ResourceManagerAgent()));
     }
 
     @Override
     public void onFrame() {
         // 23 FPS. Update every second.
         if(gameRef.getFrameCount() % 23== 0){
-            GameState gameState = GameStateBuilder.requestGameState(AI.getID()).build();
+            GameState gameState = GameStateBuilder.requestGameState(AI.player).build();
             AI.getActions(gameState).stream().forEach(action -> action.execute());
         }
     }

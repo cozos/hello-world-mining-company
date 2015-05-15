@@ -15,8 +15,8 @@ public class GameStateBuilder {
 
     private static GameStateBuilder builderInstance = new GameStateBuilder();
 
-    public static GameStateBuilder requestGameState(int playerID){
-        instance = new GameState(provider.getIdleWorkers(playerID), provider.getMineralFields());
+    public static GameStateBuilder requestGameState(bwapi.Player player){
+        instance = new GameState(provider.getIdleWorkers(player), provider.getMineralFields());
         return builderInstance;
     }
 

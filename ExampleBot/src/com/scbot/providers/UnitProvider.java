@@ -21,14 +21,14 @@ public class UnitProvider implements IUnitProvider {
         this.builder = new UnitBuilder();
     }
 
-    public Collection<Unit> getAgents(int ID){
-        return game.getUnits(ID).stream()
+    public Collection<Unit> getAgents(bwapi.Player player){
+        return player.getUnits().stream()
                 .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());
     }
 
-    public Collection<Unit> getIdleWorkers(int ID){
-        return game.getUnits(ID).stream()
+    public Collection<Unit> getIdleWorkers(bwapi.Player player){
+        return player.getUnits().stream()
                 .filter(u -> u.getType().isWorker() && u.isIdle())
                 .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());

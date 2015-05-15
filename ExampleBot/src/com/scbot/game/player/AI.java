@@ -7,16 +7,12 @@ import java.util.Collection;
 /**
  * Created by User1 on 5/4/2015.
  */
-public class AI extends HeirarchicalAgent implements IPlayer{
+public class AI extends HeirarchicalAgent {
 
-    private int playerID;
+    public bwapi.Player player;
 
-    public AI(int playerID, Collection<HeirarchicalAgent> departments){
+    public AI(bwapi.Player player, Collection<HeirarchicalAgent> departments){
         super(departments);
-        this.playerID = playerID;
-    }
-
-    public int getID(){
-        return this.playerID;
+        this.player = player;
     }
 }
