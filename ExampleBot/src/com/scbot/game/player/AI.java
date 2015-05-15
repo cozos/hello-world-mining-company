@@ -1,12 +1,7 @@
 package com.scbot.game.player;
 
 import com.scbot.game.agent.HeirarchicalAgent;
-import com.scbot.game.agent.IAgent;
-import com.scbot.game.agent.IUnit;
-import com.scbot.game.state.GameState;
-import com.scbot.game.actions.IAction;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**

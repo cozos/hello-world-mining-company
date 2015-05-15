@@ -1,6 +1,6 @@
 package com.scbot.game.state;
 
-import com.scbot.game.agent.IUnit;
+import com.scbot.game.agent.Unit;
 
 import java.util.Collection;
 
@@ -9,26 +9,26 @@ import java.util.Collection;
  */
 public class GameState {
 
-    private Collection<IUnit> idleWorkers;
+    private Collection<Unit> idleWorkers;
 
-    private Collection<IUnit> mineralFields;
+    private Collection<bwapi.Unit> mineralFields;
 
-    public GameState(Collection<IUnit> idleWorkers, Collection<IUnit> mineralFields){
+    public GameState(Collection<Unit> idleWorkers, Collection<bwapi.Unit> mineralFields){
         this.idleWorkers = idleWorkers;
         this.mineralFields = mineralFields;
     }
 
-    public Collection<IUnit> getIdleWorkers() {
+    public Collection<Unit> getIdleWorkers() {
         return idleWorkers;
     }
 
-    public Collection<IUnit> getMineralFields() {
+    public Collection<bwapi.Unit> getMineralFields() {
         return mineralFields;
     }
 
-    public void occupyMineral(int id){
-        for(IUnit mineral : mineralFields){
-            if(mineral.getID() == id){
+    public void occupyMineral(bwapi.Unit unit){
+        for(bwapi.Unit mineral : mineralFields){
+            if(mineral.getID() == unit.getID()){
                 mineralFields.remove(mineral);
                 return;
             }

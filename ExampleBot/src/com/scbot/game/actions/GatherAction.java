@@ -7,20 +7,20 @@ import com.scbot.game.Game;
  */
 public class GatherAction implements IAction {
 
-    private int unitID;
+    private bwapi.Unit source;
 
-    private int targetUnitID;
+    private bwapi.Unit target;
 
-    public GatherAction(int unitID, int targetUnitID){
-        this.unitID = unitID;
-        this.targetUnitID = targetUnitID;
+    public GatherAction(bwapi.Unit source, bwapi.Unit target){
+        this.source = source;
+        this.target = target;
     }
 
-    public int getTargetID(){
-        return this.targetUnitID;
+    public bwapi.Unit getTarget(){
+        return target;
     }
 
     public void execute(){
-        Game.getUnit(unitID).gather(Game.getUnit(targetUnitID), false);
+        source.gather(target);
     }
 }

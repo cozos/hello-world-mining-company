@@ -48,7 +48,7 @@ public class BWListener extends DefaultBWListener implements Runnable{
     @Override
     public void onFrame() {
         // 23 FPS. Update every second.
-        if(gameRef.getFrameCount() == 23){
+        if(gameRef.getFrameCount() % 23== 0){
             GameState gameState = GameStateBuilder.requestGameState(AI.getID()).build();
             AI.getActions(gameState).stream().forEach(action -> action.execute());
         }

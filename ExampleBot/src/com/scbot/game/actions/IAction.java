@@ -5,5 +5,5 @@ package com.scbot.game.actions;
  */
 public interface IAction {
     void execute();
-    int getTargetID();
+    bwapi.Unit getTarget();
 }

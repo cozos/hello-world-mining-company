@@ -11,50 +11,30 @@ import java.util.Collection;
 /**
  * Created by User1 on 5/4/2015.
  */
-public class Unit implements IUnit, IAgent {
+public class Unit implements IAgent {
 
-    private int ID;
+    public bwapi.Unit unit;
 
-    private Position position;
-
-    public Unit(int ID, Position position){
-        this.ID = ID;
-        this.position = position;
-    }
-
-    @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    @Override
-    public int getDistance(IUnit unit) {
-        int newx = Math.abs(this.position.getX() - unit.getPosition().getX());
-        int newy = Math.abs(this.position.getY() - unit.getPosition().getY());
-        return (int)Math.sqrt(newx*newx + newy*newy);
-    }
-
-    @Override
-    public int getID() {
-        return ID;
+    public Unit(bwapi.Unit unit){
+        this.unit = unit;
     }
 
     @Override
     public Collection<IAction> getActions(GameState state) {
 
         Collection<IAction> IActions = new ArrayList<>();
-        Collection<IUnit> mineralFields = state.getMineralFields();
+        Collection<bwapi.Unit> mineralFields = state.getMineralFields();
 
-        IUnit closestMineral = null;
+        bwapi.Unit closestMineral = null;
 
-        for(IUnit mineral : mineralFields){
-            if(closestMineral==null || this.getDistance(mineral) < this.getDistance(closestMineral)){
+        for(bwapi.Unit mineral : mineralFields){
+            if(closestMineral==null || this.unit.getDistance(mineral) < this.unit.getDistance(closestMineral)){
                 closestMineral = mineral;
             }
         }
 
         if(closestMineral != null){
-            IActions.add(new GatherAction(this.getID(), closestMineral.getID()));
+            IActions.add(new GatherAction(this.unit, closestMineral));
         }
 
         return IActions;

@@ -2,7 +2,7 @@ package com.scbot.providers;
 
 import com.scbot.builders.UnitBuilder;
 import com.scbot.game.Game;
-import com.scbot.game.agent.IUnit;
+import com.scbot.game.agent.Unit;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -21,23 +21,22 @@ public class UnitProvider implements IUnitProvider {
         this.builder = new UnitBuilder();
     }
 
-    public Collection<IUnit> getAgents(int ID){
+    public Collection<Unit> getAgents(int ID){
         return game.getUnits(ID).stream()
                 .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());
     }
 
-    public Collection<IUnit> getIdleWorkers(int ID){
+    public Collection<Unit> getIdleWorkers(int ID){
         return game.getUnits(ID).stream()
                 .filter(u -> u.getType().isWorker() && u.isIdle())
                 .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());
     }
 
-    public Collection<IUnit> getMineralFields(){
+    public Collection<bwapi.Unit> getMineralFields(){
         return game.getNeutralUnits().stream()
                 .filter(unit -> unit.getType().isMineralField())
-                .map(unit -> builder.buildAgent(unit).build())
                 .collect(Collectors.toList());
     }
 }

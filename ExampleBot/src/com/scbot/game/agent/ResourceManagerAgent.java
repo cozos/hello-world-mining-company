@@ -14,13 +14,13 @@ public class ResourceManagerAgent extends HeirarchicalAgent{
     @Override
     public Collection<IAction> getActions(GameState state) {
 
-        Collection<IUnit> idleWorkers = state.getIdleWorkers();
+        Collection<Unit> idleWorkers = state.getIdleWorkers();
         Collection<IAction> actions = new ArrayList<>();
 
-        for(IUnit unit : idleWorkers){
+        for(Unit unit : idleWorkers){
             Collection<IAction> unitActions = unit.getActions(state);
             for (IAction action : unitActions){
-                state.occupyMineral(action.getTargetID());
+                state.occupyMineral(action.getTarget());
             }
             actions.addAll(unitActions);
         }
