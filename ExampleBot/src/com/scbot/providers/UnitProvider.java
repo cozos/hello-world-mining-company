@@ -27,6 +27,12 @@ public class UnitProvider implements IUnitProvider {
                 .collect(Collectors.toList());
     }
 
+    public Collection<bwapi.Unit> getBuildings(bwapi.Player player){
+        return player.getUnits().stream()
+                .filter(u -> u.getType().isBuilding())
+                .collect(Collectors.toList());
+    }
+
     public Collection<Unit> getIdleWorkers(bwapi.Player player){
         return player.getUnits().stream()
                 .filter(u -> u.getType().isWorker() && u.isIdle())

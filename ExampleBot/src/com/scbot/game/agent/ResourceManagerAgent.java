@@ -1,9 +1,13 @@
 package com.scbot.game.agent;
 
+import bwapi.UnitType;
+import com.scbot.game.Game;
 import com.scbot.game.actions.IAction;
+import com.scbot.game.actions.TrainAction;
 import com.scbot.game.state.GameState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -11,8 +15,15 @@ import java.util.Collection;
  */
 public class ResourceManagerAgent extends HeirarchicalAgent{
 
-    @Override
-    public Collection<IAction> getActions(GameState state) {
+    public Collection<IAction> getCommandCenterSCVTrainingActions(GameState state){
+        bwapi.Unit commCenter = state.getCommandCenter();
+        if(commCenter != null && !commCenter.isTraining()){
+            return Arrays.asList(new TrainAction(commCenter, UnitType.Terran_SCV));
+        }
+        return new ArrayList<>();
+    }
+
+    public Collection<IAction> getSCVMiningActions(GameState state){
 
         Collection<Unit> idleWorkers = state.getIdleWorkers();
         Collection<IAction> actions = new ArrayList<>();
@@ -26,5 +37,13 @@ public class ResourceManagerAgent extends HeirarchicalAgent{
         }
 
         return actions;
+    }
+
+    @Override
+    public Collection<IAction> getActions(GameState state) {
+        Collection<IAction> allActions = new ArrayList<>();
+        allActions.addAll(this.getSCVMiningActions(state));
+        allActions.addAll(this.getCommandCenterSCVTrainingActions(state));
+        return allActions;
     }
 }
